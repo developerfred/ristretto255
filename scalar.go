@@ -6,7 +6,7 @@ package ristretto255
 
 import (
 	"encoding/base64"
-	"github.com/gtank/ristretto255/internal/scalar"
+	"github.com/developerfred/ristretto255/internal/scalar"
 )
 
 // A Scalar is an element of the ristretto255 scalar field, as specified in
@@ -81,6 +81,11 @@ func (s *Scalar) Equal(u *Scalar) int {
 // Zero sets s = 0 and returns s.
 func (s *Scalar) Zero() *Scalar {
 	s.s = scalar.Scalar{}
+	return s
+}
+
+func (s *Scalar) Reduce() *Scalar {
+	s.s.Reduce()
 	return s
 }
 

@@ -9,7 +9,7 @@ package scalar
 import (
 	"crypto/subtle"
 	"encoding/binary"
-	"errors"
+	//"errors"
 )
 
 // A Scalar is an integer modulo
@@ -72,11 +72,21 @@ func (s *Scalar) FromCanonicalBytes(x []byte) error {
 	if len(x) != 32 {
 		panic("scalar: invalid scalar length")
 	}
-	if !scMinimal(x) {
-		return errors.New("invalid scalar encoding")
-	}
+	// if !scMinimal(x) {
+	// 	return errors.New("invalid scalar encoding")
+	// }
 	copy(s[:], x)
+	// if !scMinimal(x) {
+	// 	s.reduce()
+	// }
 	return nil
+}
+
+func (s *Scalar) Reduce() *Scalar {
+	if !scMinimal(s[:]) {
+		return s.reduce()
+	}
+	return s
 }
 
 // reduce reduces s mod l returns it.
